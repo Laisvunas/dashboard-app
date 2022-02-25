@@ -72,7 +72,7 @@ const options = {
       borderWidth: 0,
     },
     column: {
-      stacking: 'normal',
+      stacking: 'percent',
     },
   },
   legend: {
@@ -80,7 +80,28 @@ const options = {
       color: 'black',
     },
   },
-
+  series: [
+    {
+      name: 'Phones',
+      data: [5, 3, 4, 7, 2],
+      color: '#149947'
+    },
+    {
+      name: 'Services',
+      data: [2, 2, 3, 2, 1],
+      color: '#1DDA65'
+    },
+    {
+      name: 'Laptops',
+      data: [3, 4, 4, 2, 5],
+      color: '#5CF396'
+    },
+    {
+      name: 'Tablets',
+      data: [3, 4, 4, 2, 5],
+      color: '#C1FAD7'
+    },
+  ]
 }
 
 const app = () => <div></div>;
