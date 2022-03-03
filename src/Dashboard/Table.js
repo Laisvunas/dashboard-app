@@ -8,7 +8,34 @@ import { medGrey } from './GlobalStyle';
 
 const ROW_HEIGHT = 48;
 
+const TableCell = styled.div`
+  display: flex;
+  color: black;
+  ${({ align }) => align === 'right' && `flex-direction: row-reverse`}
+`;
+
 class ReactVirtualizedTable extends React.Component {
+  cellRenderer = ({ cellData, columnIndex }) => {
+    const { columns } = this.props;
+    return (
+      <TableCell
+        align={columns[columnIndex].numeric ? 'right' : 'left'}
+      >
+        {cellData}
+      </TableCell>
+    );
+  };
+  headerRenderer = ({ label, columnIndex }) => {
+    const { columns } = this.props;
+    return (
+      <TableCell
+        header
+        align={columns[columnIndex].numeric ? 'right' : 'left'}
+      >
+        <span>{label}</span>
+      </TableCell>
+    );
+  };
   render() {
     const { columns } = this.props;
     return (
@@ -28,7 +55,18 @@ class ReactVirtualizedTable extends React.Component {
             gridStyle={{ outline: 0 }}
           >
             {columns.map(({dataKey, ...other}, index) => {
-              return <Column key={dataKey} dataKey={dataKey} {...other} />
+              return <Column 
+                key={dataKey} 
+                dataKey={dataKey} 
+                headerRenderer={headerProps =>
+                  this.headerRenderer({
+                    ...headerProps,
+                    columnIndex: index,
+                  })
+                }
+                cellRenderer={this.cellRenderer}
+                {...other} 
+              />
             })}
           </Table>
         )}
